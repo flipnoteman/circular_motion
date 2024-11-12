@@ -1,0 +1,5 @@
+robot_1:
+  position: [2, 2, -2]
+  velocity: [0, 0, 0]
+  rotation: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+  omega: [0, 0, 0]
