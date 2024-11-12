@@ -22,4 +22,5 @@
 
   <!-- runs an rviz node for visualization -->
   <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find circular_motion)/config/simulation.rviz"/>
+  <!-- <node name="circular_mover" type="circular_mover" pkg="circular_mover"/> -->
 </launch>
