@@ -7,7 +7,7 @@ Navigate to your catkin_ws sources folder and clone this repository:
 
 ```sh
 cd ~/catkin_ws
-git clone https://github.com/flipnoteman/circular_motion src
+git clone https://github.com/flipnoteman/circular_motion src/
 rm -rf .git # Optional
 ```
 
