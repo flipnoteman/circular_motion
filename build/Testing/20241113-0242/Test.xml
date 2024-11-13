@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20241113-0242-Experimental"
+	Name="DESKTOP-F769F4E"
+	Generator="ctest-3.16.3"
+	CompilerName="/usr/bin/g++"
+	CompilerVersion="9.4.0"
+	OSName="Linux"
+	Hostname="DESKTOP-F769F4E"
+	OSRelease="5.15.133.1-microsoft-standard-WSL2"
+	OSVersion="#1 SMP Thu Oct 5 21:02:42 UTC 2023"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="25"
+	ModelID="97"
+	ProcessorCacheSize="1024"
+	NumberOfLogicalCPU="24"
+	NumberOfPhysicalCPU="12"
+	TotalVirtualMemory="4096"
+	TotalPhysicalMemory="15561"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="4691.08"
+	>
+	<Testing>
+		<StartDateTime>Nov 12 23:36 CST</StartDateTime>
+		<StartTestTime>1731476164</StartTestTime>
+		<TestList/>
+		<EndDateTime>Nov 12 23:36 CST</EndDateTime>
+		<EndTestTime>1731476164</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

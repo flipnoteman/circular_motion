@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/sam/catkin_ws/src/circular_motion/build/devel/setup.sh

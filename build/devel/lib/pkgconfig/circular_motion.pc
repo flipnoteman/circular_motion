@@ -1,0 +1,8 @@
+prefix=/home/sam/catkin_ws/src/circular_motion/build/devel
+
+Name: circular_motion
+Description: Description of circular_motion
+Version: 0.0.1
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: message_runtime

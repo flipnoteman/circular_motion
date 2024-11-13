@@ -17,5 +17,5 @@ catkin_package(
 # listed before other locations
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(circular_mover src/circular_pub.cpp)
+add_executable(circular_mover src/circular_pub.cpp src/geometry_helpers.cpp src/pointList.cpp)
 target_link_libraries(circular_mover ${catkin_LIBRARIES})

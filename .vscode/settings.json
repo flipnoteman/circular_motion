@@ -5,6 +5,8 @@
         "deque": "cpp",
         "string": "cpp",
         "vector": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "core": "cpp",
+        "tuple": "cpp"
     }
 }
