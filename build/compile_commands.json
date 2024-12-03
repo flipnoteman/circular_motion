@@ -1,20 +1,26 @@
 [
 {
   "directory": "/home/sam/catkin_ws/src/circular_motion/build",
-  "command": "/usr/bin/g++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"circular_motion\\\" -I../include -I/home/sam/catkin_ws/devel/.private/simulator_utils/include -I/home/sam/catkin_ws/src/multi_uav_simulator/simulator_utils/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/circular_mover.dir/src/circular_pub.cpp.o -c /home/sam/catkin_ws/src/circular_motion/src/circular_pub.cpp",
+  "command": "/usr/bin/g++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"circular_motion\\\" -Idevel/include -I../include -I/home/sam/catkin_ws/devel/.private/simulator_utils/include -I/home/sam/catkin_ws/src/multi_uav_simulator/simulator_utils/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/circular_mover.dir/src/circular_pub.cpp.o -c /home/sam/catkin_ws/src/circular_motion/src/circular_pub.cpp",
   "file": "/home/sam/catkin_ws/src/circular_motion/src/circular_pub.cpp"
 },
 
 {
   "directory": "/home/sam/catkin_ws/src/circular_motion/build",
-  "command": "/usr/bin/g++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"circular_motion\\\" -I../include -I/home/sam/catkin_ws/devel/.private/simulator_utils/include -I/home/sam/catkin_ws/src/multi_uav_simulator/simulator_utils/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/circular_mover.dir/src/geometry_helpers.cpp.o -c /home/sam/catkin_ws/src/circular_motion/src/geometry_helpers.cpp",
+  "command": "/usr/bin/g++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"circular_motion\\\" -Idevel/include -I../include -I/home/sam/catkin_ws/devel/.private/simulator_utils/include -I/home/sam/catkin_ws/src/multi_uav_simulator/simulator_utils/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/circular_mover.dir/src/geometry_helpers.cpp.o -c /home/sam/catkin_ws/src/circular_motion/src/geometry_helpers.cpp",
   "file": "/home/sam/catkin_ws/src/circular_motion/src/geometry_helpers.cpp"
 },
 
 {
   "directory": "/home/sam/catkin_ws/src/circular_motion/build",
-  "command": "/usr/bin/g++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"circular_motion\\\" -I../include -I/home/sam/catkin_ws/devel/.private/simulator_utils/include -I/home/sam/catkin_ws/src/multi_uav_simulator/simulator_utils/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/circular_mover.dir/src/pointList.cpp.o -c /home/sam/catkin_ws/src/circular_motion/src/pointList.cpp",
+  "command": "/usr/bin/g++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"circular_motion\\\" -Idevel/include -I../include -I/home/sam/catkin_ws/devel/.private/simulator_utils/include -I/home/sam/catkin_ws/src/multi_uav_simulator/simulator_utils/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/circular_mover.dir/src/pointList.cpp.o -c /home/sam/catkin_ws/src/circular_motion/src/pointList.cpp",
   "file": "/home/sam/catkin_ws/src/circular_motion/src/pointList.cpp"
+},
+
+{
+  "directory": "/home/sam/catkin_ws/src/circular_motion/build",
+  "command": "/usr/bin/g++  -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\\\"circular_motion\\\" -Idevel/include -I../include -I/home/sam/catkin_ws/devel/.private/simulator_utils/include -I/home/sam/catkin_ws/src/multi_uav_simulator/simulator_utils/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp  -g   -o CMakeFiles/sync_node.dir/src/synchronize.cpp.o -c /home/sam/catkin_ws/src/circular_motion/src/synchronize.cpp",
+  "file": "/home/sam/catkin_ws/src/circular_motion/src/synchronize.cpp"
 },
 
 {
