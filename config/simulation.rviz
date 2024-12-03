@@ -4,8 +4,7 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /RobotModel1
-        - /Marker1
+        - /RobotModel2/Links1
       Splitter Ratio: 0.6470588445663452
     Tree Height: 563
   - Class: rviz/Selection
@@ -52,6 +51,15 @@ Visualization Manager:
       Reference Frame: <Fixed Frame>
       Value: true
     - Alpha: 1
+      Class: rviz/Axes
+      Enabled: true
+      Length: 0.5
+      Name: Axes
+      Radius: 0.05000000074505806
+      Reference Frame: map
+      Show Trail: false
+      Value: true
+    - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
       Enabled: true
@@ -72,18 +80,54 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
-    - Alpha: 1
-      Class: rviz/Axes
-      Enabled: true
-      Length: 0.5
-      Name: Axes
-      Radius: 0.05000000074505806
-      Reference Frame: map
-      Show Trail: false
-      Value: true
     - Class: rviz/Marker
       Enabled: true
       Marker Topic: /base_link1/path
+      Name: Marker
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /base_link1/goal
+      Name: Marker
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base_link2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: RobotModel
+      Robot Description: robot2
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /base_link2/path
+      Name: Marker
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /base_link2/goal
       Name: Marker
       Namespaces:
         "": true
@@ -133,9 +177,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8003978133201599
+      Pitch: 0.2947964668273926
       Target Frame: <Fixed Frame>
-      Yaw: 1.5504138469696045
+      Yaw: 1.615414023399353
     Saved: ~
 Window Geometry:
   Displays:
@@ -153,5 +197,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1267
-  X: 499
+  X: 544
   Y: -32

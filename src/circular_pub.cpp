@@ -1,4 +1,5 @@
 #include "geometry_helpers.hpp"
+#include <string>
 
 bool positionReceived = false;
 
@@ -6,15 +7,35 @@ ros::Subscriber sub;   // Subscriber to get current position of drone
 ros::Publisher pub;// Publisher to tell the drone to move somewhere
 
 void currentStateCallback(const simulator_utils::Waypoint::ConstPtr&);
+bool is_number(const std::string&);
 void checkDesiredStateListLength();
 
 int main(int argc, char **argv) {
 
+  if (argc < 2) {
+    throw std::invalid_argument("Must supply an argument indicating robot_{id}");
+    return -1;
+  }
+
+  if (!is_number(argv[1])) {
+    throw std::invalid_argument("Value must be a number");
+    return -1;
+  }
+
+  posIteration = std::stoi(argv[1]);
+
   getCenter();
   ros::init(argc, argv, "circular_mover"); // Initializes the ros node with arguments from ROS
   ros::NodeHandle n;  // Main access point to communications with the ROS system
-  sub = n.subscribe("/robot_1/current_state", 10, currentStateCallback);
-  pub = n.advertise<geometry_msgs::Point>("/robot_1/desired_state", 10);  
+  std::string robot_name = "/robot_";
+  robot_name.append(argv[1]);
+  std::string robot_current_state;
+  std::string robot_desired_state;
+  robot_current_state.append(robot_name).append("/current_state");
+  robot_desired_state.append(robot_name).append("/desired_state");
+
+  sub = n.subscribe(robot_current_state, 10, currentStateCallback);
+  pub = n.advertise<geometry_msgs::Point>(robot_desired_state, 10);  
   ros::Rate loop_rate(1); //10 Hz
 
   calculateCirclePosition(posIteration, &desiredState);
@@ -29,6 +50,13 @@ int main(int argc, char **argv) {
   }
 
   return 0;
+}
+
+bool is_number(const std::string& s)
+{
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
 }
 
 void currentStateCallback(const simulator_utils::Waypoint::ConstPtr& point) 
