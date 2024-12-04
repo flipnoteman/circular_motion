@@ -1,12 +1,18 @@
 #include "geometry_helpers.hpp"
 #include <string>
+#include <std_msgs/Bool.h>
 
 bool positionReceived = false;
 
 ros::Subscriber sub;   // Subscriber to get current position of drone
+ros::Subscriber sync_rdy_sub;
 ros::Publisher pub;// Publisher to tell the drone to move somewhere
+ros::Publisher sync_wait;
+
+bool sync_rdy = true;
 
 void currentStateCallback(const simulator_utils::Waypoint::ConstPtr&);
+void rdyCallBack(const std_msgs::Bool::ConstPtr&);
 bool is_number(const std::string&);
 void checkDesiredStateListLength();
 
@@ -36,6 +42,9 @@ int main(int argc, char **argv) {
 
   sub = n.subscribe(robot_current_state, 10, currentStateCallback);
   pub = n.advertise<geometry_msgs::Point>(robot_desired_state, 10);  
+  sync_wait = n.advertise<std_msgs::Bool>("sync_wait", 100);
+  sync_rdy_sub = n.subscribe("sync_rdy", 100, rdyCallBack);
+
   ros::Rate loop_rate(1); //10 Hz
 
   calculateCirclePosition(posIteration, &desiredState);
@@ -65,20 +74,25 @@ void currentStateCallback(const simulator_utils::Waypoint::ConstPtr& point)
   geoCopy(&currentState, point->position);
 
   if (hasReachedTarget()) {
-    // ROS_INFO("Reached target location: [%f, %f, %f]", desiredState.x, desiredState.y, desiredState.z);
-    if (posIteration >= NUM_POINTS - 2) posIteration = 0; else ++posIteration;
-    // geoCopy(&lastState, desiredState);
-    if (desiredStateList.len() < NUM_POINTS) {
-      calculateCirclePosition(posIteration, &desiredState);
-      // ROS_INFO("Iteration Number: %d", posIteration);
-      desiredStateList.push(desiredState);
-    } else {
-      geoCopy(&desiredState, desiredStateList[posIteration]);
+    std_msgs::Bool msg;
+    msg.data = true;
+    sync_wait.publish(msg);
+    if (sync_rdy)
+    {// ROS_INFO("Reached target location: [%f, %f, %f]", desiredState.x, desiredState.y, desiredState.z);
+        if (posIteration >= NUM_POINTS - 2) posIteration = 0; else ++posIteration;
+        // geoCopy(&lastState, desiredState);
+        if (desiredStateList.len() < NUM_POINTS) {
+          calculateCirclePosition(posIteration, &desiredState);
+          // ROS_INFO("Iteration Number: %d", posIteration);
+          desiredStateList.push(desiredState);
+        } else {
+          geoCopy(&desiredState, desiredStateList[posIteration]);
+        }
+        pub.publish(desiredState);
+        sync_rdy = false;
     }
-    pub.publish(desiredState);
-   
     // ROS_INFO("Sent target location: [%f, %f, %f]", desiredState.x, desiredState.y, desiredState.z); 
-    
+
   }
 
   positionReceived = true;
@@ -89,4 +103,10 @@ void checkDesiredStateListLength() {
   if (desiredStateList.len() > NUM_POINTS) {
     desiredStateList.popFront();
   }
+}
+
+void rdyCallBack(const std_msgs::Bool::ConstPtr& msg) {
+    if (msg->data) {
+        sync_rdy = true;
+    }
 }

@@ -8,7 +8,7 @@
 
 #define RADIUS 3.0
 #define NUM_POINTS 20
-#define TOLERANCE 1.3
+#define TOLERANCE 0.7
 
 extern geometry_msgs::Point currentState; 
 extern geometry_msgs::Point lastState;

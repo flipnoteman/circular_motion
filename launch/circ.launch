@@ -29,6 +29,7 @@
 
   <!-- runs an rviz node for visualization -->
   <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find circular_motion)/config/simulation.rviz"/>
+  <node name="sync_node" type="sync_node" pkg="circular_motion" args="2" />
   <node name="circular_mover1" type="circular_mover" pkg="circular_motion" args="1"/>
   <node name="circular_mover2" type="circular_mover" pkg="circular_motion" args="2"/>
 

@@ -5,7 +5,7 @@ robot_1:
   omega: [0, 0, 0]
 
 robot_2:
-  position: [3, 2, 0]
+  position: [1, 2, 0]
   velocity: [0, 0, 0]
   rotation: [1, 0, 0, 0, 1, 0, 0, 0, 1]
   omega: [0, 0, 0]
