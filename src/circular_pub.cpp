@@ -1,34 +1,27 @@
 #include "geometry_helpers.hpp"
 #include <string>
 #include <std_msgs/Bool.h>
+#include "circular_motion/State.h"
 
-bool positionReceived = false;
+int id;
 
-ros::Subscriber sub;   // Subscriber to get current position of drone
-ros::Subscriber sync_rdy_sub;
-ros::Publisher pub;// Publisher to tell the drone to move somewhere
-ros::Publisher sync_wait;
-
-bool sync_rdy = true;
+ros::Subscriber currentStateSub;   // Subscriber to get current position of drone
+ros::Subscriber desiredStateSub;   // Subscriber to get current position of drone
+ros::Publisher desiredStatePub;// Publisher to tell the drone to move somewhere
+ros::Publisher sync_state;
 
 void currentStateCallback(const simulator_utils::Waypoint::ConstPtr&);
-void rdyCallBack(const std_msgs::Bool::ConstPtr&);
+void desiredStateCallback(const circular_motion::State::ConstPtr&);
+void rdyStateCallback(const std_msgs::Bool::ConstPtr&);
 bool is_number(const std::string&);
-void checkDesiredStateListLength();
-
+void pubInitialCoordinates();
 int main(int argc, char **argv) {
 
   if (argc < 2) {
-    throw std::invalid_argument("Must supply an argument indicating robot_{id}");
-    return -1;
+    id = 0;
+  } else {
+    id = std::stoi(argv[1]);
   }
-
-  if (!is_number(argv[1])) {
-    throw std::invalid_argument("Value must be a number");
-    return -1;
-  }
-
-  posIteration = std::stoi(argv[1]);
 
   getCenter();
   ros::init(argc, argv, "circular_mover"); // Initializes the ros node with arguments from ROS
@@ -40,20 +33,14 @@ int main(int argc, char **argv) {
   robot_current_state.append(robot_name).append("/current_state");
   robot_desired_state.append(robot_name).append("/desired_state");
 
-  sub = n.subscribe(robot_current_state, 10, currentStateCallback);
-  pub = n.advertise<geometry_msgs::Point>(robot_desired_state, 10);  
-  sync_wait = n.advertise<std_msgs::Bool>("sync_wait", 100);
-  sync_rdy_sub = n.subscribe("sync_rdy", 100, rdyCallBack);
+  currentStateSub = n.subscribe(robot_current_state, 100, currentStateCallback);
+  desiredStateSub = n.subscribe("point_rdy", 100, desiredStateCallback);
+  desiredStatePub = n.advertise<geometry_msgs::Point>(robot_desired_state, 100);  
+  sync_state = n.advertise<circular_motion::State>("sync_state", 100);
 
-  ros::Rate loop_rate(1); //10 Hz
-
-  calculateCirclePosition(posIteration, &desiredState);
-  desiredStateList.push(desiredState);
+  ros::Rate loop_rate(100); //10 Hz
 
   for (;;) { 
-    if (!positionReceived) {
-      pub.publish(desiredState);
-    }
     ros::spinOnce();
     loop_rate.sleep();
   }
@@ -68,35 +55,30 @@ bool is_number(const std::string& s)
     return !s.empty() && it == s.end();
 }
 
+
 void currentStateCallback(const simulator_utils::Waypoint::ConstPtr& point) 
 {
-  // ROS_INFO("Current Location: [%f, %f, %f]", point->position.x, point->position.y, point->position.z);
-  geoCopy(&currentState, point->position);
+    // Publish current point
+    circular_motion::State msg;
+    msg.id = id;
+    msg.point = point->position;
+    sync_state.publish(msg);
 
-  if (hasReachedTarget()) {
-    std_msgs::Bool msg;
-    msg.data = true;
-    sync_wait.publish(msg);
-    if (sync_rdy)
-    {// ROS_INFO("Reached target location: [%f, %f, %f]", desiredState.x, desiredState.y, desiredState.z);
-        if (posIteration >= NUM_POINTS - 2) posIteration = 0; else ++posIteration;
-        // geoCopy(&lastState, desiredState);
-        if (desiredStateList.len() < NUM_POINTS) {
-          calculateCirclePosition(posIteration, &desiredState);
-          // ROS_INFO("Iteration Number: %d", posIteration);
-          desiredStateList.push(desiredState);
-        } else {
-          geoCopy(&desiredState, desiredStateList[posIteration]);
-        }
-        pub.publish(desiredState);
-        sync_rdy = false;
+    //ROS_INFO("Current Position: [%f, %f, %f]", currentState.x, currentState.y, currentState.z);
+}
+
+void desiredStateCallback(const circular_motion::State::ConstPtr& state) {
+    int _id_rec = state->id;
+    geometry_msgs::Point point = state->point;
+
+    if (_id_rec == id) {
+        ROS_INFO("Next state for %d = %f, %f, %f", _id_rec, point.x, point.y, point.z);
+        geometry_msgs::Point msg;
+        msg.x = point.x;
+        msg.y = point.y;
+        msg.z = point.z;
+        desiredStatePub.publish(msg);
     }
-    // ROS_INFO("Sent target location: [%f, %f, %f]", desiredState.x, desiredState.y, desiredState.z); 
-
-  }
-
-  positionReceived = true;
-  ROS_INFO("Current Position: [%f, %f, %f]", currentState.x, currentState.y, currentState.z);
 }
 
 void checkDesiredStateListLength() {
@@ -105,8 +87,5 @@ void checkDesiredStateListLength() {
   }
 }
 
-void rdyCallBack(const std_msgs::Bool::ConstPtr& msg) {
-    if (msg->data) {
-        sync_rdy = true;
-    }
+void rdyStateCallback(const std_msgs::Bool::ConstPtr& msg) {
 }

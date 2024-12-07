@@ -9,3 +9,15 @@ robot_2:
   velocity: [0, 0, 0]
   rotation: [1, 0, 0, 0, 1, 0, 0, 0, 1]
   omega: [0, 0, 0]
+
+robot_3:
+  position: [0, 1, 0]
+  velocity: [0, 0, 0]
+  rotation: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+  omega: [0, 0, 0]
+
+robot_4:
+  position: [0, 0, 0]
+  velocity: [0, 0, 0]
+  rotation: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+  omega: [0, 0, 0]

@@ -8,7 +8,8 @@
 
 #define RADIUS 3.0
 #define NUM_POINTS 20
-#define TOLERANCE 0.7
+#define TOLERANCE 1.4
+#define START_TOLERANCE 0.2
 
 extern geometry_msgs::Point currentState; 
 extern geometry_msgs::Point lastState;
@@ -18,9 +19,9 @@ extern PointList desiredStateList;
 extern int posIteration;
 
 void getCenter();
-void calculateCirclePosition(int, geometry_msgs::Point*);
+//void calculateCirclePosition(int, geometry_msgs::Point*);
 void geoCopy(geometry_msgs::Point*, geometry_msgs::Point);
-bool hasReachedTarget();
+bool hasReachedTarget(double);
 bool isHalfwayToTarget();
 double distanceFrom(geometry_msgs::Point, geometry_msgs::Point);
 

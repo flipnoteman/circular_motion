@@ -2,6 +2,8 @@
   <!-- Robot definitions from multi_uav_simulator -->
   <param name="robot1" command="$(find xacro)/xacro $(find multi_uav_simulator)/bigquad_description/bigquad.urdf.xacro robot_id:=1" />
   <param name="robot2" command="$(find xacro)/xacro $(find multi_uav_simulator)/bigquad_description/bigquad.urdf.xacro robot_id:=2" />
+  <param name="robot3" command="$(find xacro)/xacro $(find multi_uav_simulator)/bigquad_description/bigquad.urdf.xacro robot_id:=3" />
+  <param name="robot4" command="$(find xacro)/xacro $(find multi_uav_simulator)/bigquad_description/bigquad.urdf.xacro robot_id:=4" />
   
   <!-- Initial Conditions -->
   <rosparam file="$(find circular_motion)/config/initial_conditions.yaml"/>
@@ -15,6 +17,7 @@
   <!-- specifies the rosconsole log configuration file TODO: PUT IN THIS SRC DIRECTORY-->
   <env name="ROSCONSOLE_CONFIG_FILE" value="$(find multi_uav_simulator)/config/custom_rosconsole.conf"/>
 
+  <!-- Define initial robots -->
   <group ns="robot_1">
     <node name="drone" pkg="multi_uav_simulator" type="multi_uav_simulator" output="screen" args="1 $(arg controller_frequency)">
       <rosparam file="$(find multi_uav_simulator)/config/bigquad_params.yaml"/>
@@ -27,10 +30,25 @@
     </node>
   </group>
 
-  <!-- runs an rviz node for visualization -->
+  <group ns="robot_3">
+    <node name="drone" pkg="multi_uav_simulator" type="multi_uav_simulator" output="screen" args="3 $(arg controller_frequency)">
+      <rosparam file="$(find multi_uav_simulator)/config/bigquad_params.yaml"/>
+    </node>
+  </group>
+
+  <group ns="robot_4">
+    <node name="drone" pkg="multi_uav_simulator" type="multi_uav_simulator" output="screen" args="4 $(arg controller_frequency)">
+      <rosparam file="$(find multi_uav_simulator)/config/bigquad_params.yaml"/>
+    </node>
+  </group>
+
   <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find circular_motion)/config/simulation.rviz"/>
-  <node name="sync_node" type="sync_node" pkg="circular_motion" args="2" />
-  <node name="circular_mover1" type="circular_mover" pkg="circular_motion" args="1"/>
-  <node name="circular_mover2" type="circular_mover" pkg="circular_motion" args="2"/>
+  <node name="circle_position_server" type="circle_position_server" pkg="circular_motion" />
+  <node name="sync_node" type="sync_node" pkg="circular_motion" args="4" output="screen"/>
+
+  <node name="circular_mover1" type="circular_mover" pkg="circular_motion" args="1" output="screen"/>
+  <node name="circular_mover2" type="circular_mover" pkg="circular_motion" args="2" output="screen"/>
+  <node name="circular_mover3" type="circular_mover" pkg="circular_motion" args="3" output="screen"/>
+  <node name="circular_mover4" type="circular_mover" pkg="circular_motion" args="4" output="screen"/>
 
 </launch>

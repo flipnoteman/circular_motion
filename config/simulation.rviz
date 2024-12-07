@@ -5,6 +5,8 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /RobotModel2/Links1
+        - /Marker4
+        - /RobotModel3
       Splitter Ratio: 0.6470588445663452
     Tree Height: 563
   - Class: rviz/Selection
@@ -133,6 +135,43 @@ Visualization Manager:
         "": true
       Queue Size: 100
       Value: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: ""
+        base_link3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: RobotModel
+      Robot Description: robot3
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /base_link3/goal
+      Name: Marker
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /base_link3/path
+      Name: Marker
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 255; 255; 255
@@ -197,5 +236,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1267
-  X: 2106
-  Y: 65
+  X: 445
+  Y: -32

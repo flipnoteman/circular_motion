@@ -5,7 +5,6 @@ geometry_msgs::Point lastState;
 geometry_msgs::Point desiredState; 
 geometry_msgs::Point center;
 PointList desiredStateList;
-int posIteration = 0;
 
 void getCenter() {
   center.x = 0.0;
@@ -19,18 +18,24 @@ void geoCopy(geometry_msgs::Point* destination, geometry_msgs::Point source) {
   destination->z = source.z;
 }
 
-void calculateCirclePosition(int iteration, geometry_msgs::Point *point) 
-{
-  double theta = 2.0 * M_PI * iteration / NUM_POINTS;
-  point->x = center.x + RADIUS * cos(theta);
-  point->y = center.y + RADIUS * sin(theta);
-  point->z = center.z;
-}
+//void calculateCirclePosition(int iteration, geometry_msgs::Point *point) 
+//{
+//  double theta = 2.0 * M_PI * iteration / NUM_POINTS;
+//  point->x = center.x + RADIUS * cos(theta);
+//  point->y = center.y + RADIUS * sin(theta);
+//  point->z = center.z;
+//}
 
-bool hasReachedTarget() { 
+bool hasReachedTarget(double tolerance) { 
   double distance = distanceFrom(currentState, desiredState);
   // ROS_INFO("Distance to target: %f", distance);
-  return distance < TOLERANCE;
+  return distance < tolerance;
+}
+
+bool hasReachedStart(geometry_msgs::Point destination) { 
+  double distance = distanceFrom(currentState, destination);
+  // ROS_INFO("Distance to target: %f", distance);
+  return distance < 0.2;
 }
 
 bool isHalfwayToTarget() {
