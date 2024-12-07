@@ -28,8 +28,6 @@ void syncState_cb(const circular_motion::State::ConstPtr& msg) {
            desiredStateBatch[msg->id] = srv.response.point;
         }
     }
-    // Now should calculate next positions for entities and then check to see if all drones are halfway (probably with a service)
-    // Maybe look into doing it in batches, ie calculate new drone positions for all of them in the service and send all back at once
 }
 
 int main(int argc, char **argv) {
