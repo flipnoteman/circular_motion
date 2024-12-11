@@ -1,0 +1,27 @@
+<launch> 
+
+    <!-- Parameters and Initial Conditions -->
+    <rosparam file="$(find circular_motion)/config/initial_conditions.yaml"/>
+    <param name="frame/prefix" value="/base_link"/>
+    <param name="frame/fixed" value="map"/> 
+    <arg name="controller_frequency" default="200"/>
+
+    <!-- ROS Console Information -->
+    <env name="ROSCONSOLE_CONFIG_FILE" value="$(find multi_uav_simulator)/config/custom_rosconsole.conf"/>
+    
+    <!-- Define drone sim parameters -->
+    <arg name="num_drones" default="4"/>
+    <arg name="drone_height" default="1.0"/>
+
+    <!-- Loop to generate drones and circular movers dynamically -->
+    <include file="$(find circular_motion)/launch/initdrone.launch">
+        <arg name="num_drones" value="$(arg num_drones)"/>
+        <arg name="controller_frequency" value="$(arg controller_frequency)"/>
+    </include>
+    
+    <!-- Other Nodes -->
+    <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find circular_motion)/config/simulation.rviz"/> 
+    <node name="circle_position_server" type="circle_position_server" pkg="circular_motion" args="$(arg drone_height)"/>
+    <node name="sync_node" type="sync_node" pkg="circular_motion" args="$(arg num_drones)" output="screen"/>
+    
+</launch>

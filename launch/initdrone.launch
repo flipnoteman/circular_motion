@@ -1,0 +1,22 @@
+<launch>
+    
+    <arg name="num_drones" default="0"/>
+    <arg name="controller_frequency" default="200"/>
+
+    <!-- Loop to generate drones and circular movers dynamically -->
+    <param name="robot$(arg num_drones)" command="$(find xacro)/xacro $(find multi_uav_simulator)/bigquad_description/bigquad.urdf.xacro robot_id:=$(arg num_drones)" />
+       
+    <group ns="robot_$(arg num_drones)"> 
+        <node name="drone" pkg="multi_uav_simulator" type="multi_uav_simulator" output="screen" args="$(arg num_drones) $(arg controller_frequency)"> 
+            <rosparam file="$(find multi_uav_simulator)/config/bigquad_params.yaml"/> 
+        </node> 
+    </group>
+
+    <node name="circular_mover_$(arg num_drones)" type="circular_mover" pkg="circular_motion" args="$(arg num_drones)" output="screen"/>
+    
+    <!-- Recursively start new node -->
+    <include file="$(find circular_motion)/launch/initdrone.launch" if="$(eval int(arg('num_drones')) - 1 > 0)">
+        <arg name="num_drones" value="$(eval int(arg('num_drones')) - 1)"/>
+        <arg name="controller_frequency" value="$(arg controller_frequency)"/>
+    </include>
+</launch>

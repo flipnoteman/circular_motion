@@ -21,12 +21,17 @@ bool calculate(circular_motion::CalculateCirclePosition::Request &req,
 
 int main(int argc, char **argv)
 {
+  double height = 1.0;
+  if (argc > 1) {
+    height = atof(argv[1]);
+  }
+
   ros::init(argc, argv, "circle_position_server");
   ros::NodeHandle nh;
 
   center.x = 0.0;
   center.y = 0.0;
-  center.z = 0.0;
+  center.z = height;
 
   ros::ServiceServer service = nh.advertiseService("calculate_circle_position", calculate);
   ROS_INFO("Ready to calculate circle positions.");

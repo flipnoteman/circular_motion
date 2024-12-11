@@ -18,8 +18,12 @@ circular_motion::CalculateCirclePosition srv;
 bool initialBatch = true;
 
 void syncState_cb(const circular_motion::State::ConstPtr& msg) {
+    double angleIncrement = 2 * M_PI / numEntities;
+    int positionIndex = (msg->id % NUM_POINTS);
+    double angle = positionIndex * angleIncrement;
     // If the drone reaches halfway to its target, add to list* and when all drones have satisfied this: publish new positions
-    srv.request.iteration = msg->id + iteration;
+    srv.request.iteration = iteration + static_cast<int>(angle / (2 * M_PI) * NUM_POINTS);  
+
     if (circleCalculatorClient.call(srv)) {
         // ROS_INFO("Position: x=%f, y=%f, z=%f", srv.response.point.x, srv.response.point.y, srv.response.point.z);
         if (initialBatch || 
